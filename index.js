@@ -4,7 +4,7 @@ import path from 'path';
 import bodyParser from 'body-parser';
 
 const app = express();
-const PORT = 3000;
+const port = process.env.PORT || 3000;
 const FILE_DIR = path.join(process.cwd(), 'files');
 const FILE_PATH = path.join(FILE_DIR, 'data.txt');
 
