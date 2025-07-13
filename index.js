@@ -40,6 +40,7 @@ app.get('/read', (req, res) => {
   });
 });
 
+app.use(express.static("public"));
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

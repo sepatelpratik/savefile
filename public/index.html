@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Text to Speech from API</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+    }
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h2>Speak API Text</h2>
+  <button onclick="fetchAndSpeak()">Fetch and Speak</button>
+
+  <script>
+    function fetchAndSpeak() {
+      fetch('/read')
+        .then(response => response.json())
+        .then(data => {
+          const text = data.content || 'No content received.';
+          const utterance = new SpeechSynthesisUtterance(text);
+          speechSynthesis.speak(utterance);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Failed to fetch from /read');
+        });
+    }
+  </script>
+</body>
+</html>
