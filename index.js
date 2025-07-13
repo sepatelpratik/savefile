@@ -41,6 +41,6 @@ app.get('/read', (req, res) => {
 });
 
 app.use(express.static("public"));
-app.listen(PORT, () => {
+app.listen(port, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
