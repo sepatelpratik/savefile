@@ -2,6 +2,7 @@ import express from 'express';
 import fs from 'fs';
 import path from 'path';
 import bodyParser from 'body-parser';
+import {getCorporateAction,getIndexFacts} from "./corporate.js";
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -40,7 +41,26 @@ app.get('/read', (req, res) => {
   });
 });
 
+app.get('/corporate-action', async (req, res) => {
+    try {
+        const data = await getCorporateAction();
+        res.json(data.data);
+    } catch (error) {
+        console.error("Error fetching corporate action:", error);
+        res.status(500).json({ error: 'Failed to fetch corporate action' });
+    }
+})
+app.get('/index-facts', async (req, res) => {
+    try {
+        const data = await getIndexFacts();
+        res.json(data.data);
+    } catch (error) {
+        console.error("Error fetching index facts:", error);
+        res.status(500).json({ error: 'Failed to fetch index facts' });
+    }
+})
+
 app.use(express.static("public"));
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${port}`);
 });

@@ -18,6 +18,9 @@
   "homepage": "https://github.com/sepatelpratik/savefile#readme",
   "description": "",
   "dependencies": {
-    "express": "^5.1.0"
+    "axios": "^1.10.0",
+    "axios-cookiejar-support": "^6.0.3",
+    "express": "^5.1.0",
+    "tough-cookie": "^5.1.2"
   }
 }
