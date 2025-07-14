@@ -7,7 +7,7 @@ import {getCorporateAction,getIndexFacts} from "./corporate.js";
 const app = express();
 const port = process.env.PORT || 3000;
 const FILE_DIR = path.join(process.cwd(), 'files');
-const FILE_PATH = path.join(FILE_DIR, 'data.txt');
+const FILE_PATH = path.join(FILE_DIR, 'data.json');
 
 app.use(bodyParser.json());
 
@@ -21,13 +21,14 @@ if (!fs.existsSync(FILE_PATH)) {
 
 // POST /write - write to data.txt
 app.post('/write', (req, res) => {
-  const body = req.body;
-
-  if (!body.content) {
+  const { content } = req.body;
+  console.log(req.body);
+  
+  if (!content) {
     return res.status(400).json({ error: 'content is required' });
   }
-
-  fs.writeFile(FILE_PATH, body, err => {
+  let dataToWrite = req.body;
+  fs.writeFile(FILE_PATH, JSON.stringify(dataToWrite), err => {
     if (err) return res.status(500).json({ error: 'Failed to write file' });
     res.json({ message: 'data.txt updated successfully' });
   });
@@ -37,7 +38,7 @@ app.post('/write', (req, res) => {
 app.get('/read', (req, res) => {
   fs.readFile(FILE_PATH, 'utf-8', (err, data) => {
     if (err) return res.status(500).json({ error: 'Failed to read file' });
-    res.json({ content: data });
+    res.json(JSON.parse(data));
   });
 });
 
