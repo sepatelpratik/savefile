@@ -21,13 +21,13 @@ if (!fs.existsSync(FILE_PATH)) {
 
 // POST /write - write to data.txt
 app.post('/write', (req, res) => {
-  const { content } = req.body;
+  const body = req.body;
 
-  if (!content) {
+  if (!body.content) {
     return res.status(400).json({ error: 'content is required' });
   }
 
-  fs.writeFile(FILE_PATH, content, err => {
+  fs.writeFile(FILE_PATH, body, err => {
     if (err) return res.status(500).json({ error: 'Failed to write file' });
     res.json({ message: 'data.txt updated successfully' });
   });
